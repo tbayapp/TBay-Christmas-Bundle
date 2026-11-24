@@ -6,15 +6,15 @@
 /* ===== BRING THEM HOME, DOUBLE BONUS - EDIT BEFORE LAUNCH =====
    Audience: all users (public). */
 var CONFIG={
-  gaMeasurementId:"G-093KB6Z37V",  // Google Analytics 4 Measurement ID (Admin > Data streams). Tracking stays OFF until set.
+  gaMeasurementId:"G-XXXXXXXXXX",  // Google Analytics 4 Measurement ID (Admin > Data streams). Tracking stays OFF until set.
   gaDebug:false,                   // true = print every tracked event in the browser console while testing
   minOrder:"100 points",           // Friend's total successful trades in the campaign period must reach this
   /* "Invite family now" button:
      iPhone (and desktop/web): opens the Tbay H5 Refer & Earn page below.
-     Android: deep links can't open here, so the button CLOSES this page and the user returns to the app. */
+     Android: the button CLOSES this page (closeAppPage) and the user returns to the app. */
   referH5:"[H5 Refer & Earn page URL]",  // e.g. the h5.tbay.store Refer & Earn path. Falls back to fallbackH5 while in [brackets].
   fallbackH5:"https://h5.tbay.store/",
-  androidCloseBridge:""            // Optional: the app's JS close function, e.g. "TbayBridge.closePage". Leave "" to use window.close / back.
+  androidCloseUrl:"http://dl.tbay.store/"  // Android: opening this link makes the Tbay app close the web page
 };
 </script>
 <style>
@@ -359,17 +359,22 @@ details p{padding:0 18px 16px;font-size:14.5px;color:var(--ink)}
   var ua=navigator.userAgent||'', plat=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)?'ios':(/Android/i.test(ua)?'android':'web');
   var unset=function(v){return !v||/^\[/.test(v);};
   var h5=unset(CONFIG.referH5)?CONFIG.fallbackH5:CONFIG.referH5, btn=document.getElementById('inviteBtn');
-  btn.setAttribute('href', plat==='android'?'#close':h5); btn.setAttribute('data-platform',plat);
-  function closePage(){
-    var b=CONFIG.androidCloseBridge;
-    if(b){ try{ var parts=b.split('.'), fn=parts.pop(), obj=parts.reduce(function(o,k){return o&&o[k];},window); if(obj&&typeof obj[fn]==='function'){ obj[fn](); return; } }catch(e){} }
-    try{ window.close(); }catch(e){}
-    setTimeout(function(){ if(!document.hidden){ if(history.length>1){ history.back(); }
-      else { toast.textContent='Tap back to return to Refer & Earn'; toast.classList.add('on'); setTimeout(function(){toast.classList.remove('on'); toast.textContent='';},2600); } } },250);
+  btn.setAttribute('href', plat==='android'?(CONFIG.androidCloseUrl||'http://dl.tbay.store/'):h5); btn.setAttribute('data-platform',plat);
+  // Same close method as Tbay's other web pages
+  var isIOS = plat==='ios';
+  function closeAppPage(){
+    if (isIOS) {
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.closeWebview) {
+        window.webkit.messageHandlers.closeWebview.postMessage("");
+      } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.close) {
+        window.webkit.messageHandlers.close.postMessage("");
+      } else { window.history.back(); }
+    } else { window.location.href = CONFIG.androidCloseUrl || 'http://dl.tbay.store/'; }
   }
+  window.closeAppPage = closeAppPage;
   btn.addEventListener('click',function(e){
     e.preventDefault(); var done=false;
-    var go=function(){ if(done) return; done=true; if(plat==='android') closePage(); else window.location.href=h5; };
+    var go=function(){ if(done) return; done=true; if(plat==='android') closeAppPage(); else window.location.href=h5; };
     var p={cta_id:'family_invite',link_type:'invite',link_destination:plat==='android'?'close_page':'h5_refer_earn'};
     if(window.tbayTrack) tbayTrack('cta_click',p,go); setTimeout(go,800);
   });
