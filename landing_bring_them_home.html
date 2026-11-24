@@ -1,0 +1,380 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bring Them Home, Double Bonus | Tbay</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+/* ===== BRING THEM HOME, DOUBLE BONUS - EDIT BEFORE LAUNCH =====
+   Audience: all users (public). */
+var CONFIG={
+  gaMeasurementId:"G-XXXXXXXXXX",  // Google Analytics 4 Measurement ID (Admin > Data streams). Tracking stays OFF until set.
+  gaDebug:false,                   // true = print every tracked event in the browser console while testing
+  minOrder:"100 points",           // Friend's total successful trades in the campaign period must reach this
+  /* "Invite family now" button:
+     iPhone (and desktop/web): opens the Tbay H5 Refer & Earn page below.
+     Android: deep links can't open here, so the button CLOSES this page and the user returns to the app. */
+  referH5:"[H5 Refer & Earn page URL]",  // e.g. the h5.tbay.store Refer & Earn path. Falls back to fallbackH5 while in [brackets].
+  fallbackH5:"https://h5.tbay.store/",
+  androidCloseBridge:""            // Optional: the app's JS close function, e.g. "TbayBridge.closePage". Leave "" to use window.close / back.
+};
+</script>
+<style>
+:root{--navy:#003152;--teal:#00BFBF;--teal2:#12DCDC;--yel:#FFC93C;--red:#E63946;--ink:#2E4A60;--card:rgba(255,255,255,.82)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{font-family:Poppins,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--navy);-webkit-font-smoothing:antialiased;line-height:1.5;
+ background:radial-gradient(900px 600px at 110% 20%,rgba(255,201,60,.22),transparent 60%),radial-gradient(800px 600px at -20% 60%,rgba(0,191,191,.22),transparent 60%),radial-gradient(700px 500px at 120% 90%,rgba(230,57,70,.12),transparent 60%),#F3FBFA;
+ padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px}
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;border-radius:0 0 40px 40px;color:#fff;padding-bottom:26px;
+ background:radial-gradient(120% 70% at 50% 100%,#2BE6E6 0%,#00A8B5 35%,#006A80 62%,#003152 100%)}
+.hero:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,rgba(255,230,120,.0),rgba(255,230,120,.18),rgba(255,230,120,0) 12%,rgba(255,230,120,.16) 25%,rgba(255,230,120,0) 37%,rgba(255,230,120,.18) 50%,rgba(255,230,120,0) 62%,rgba(255,230,120,.16) 75%,rgba(255,230,120,0) 87%);animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.orb{position:absolute;border-radius:50%;filter:blur(30px);opacity:.55;animation:float 8s ease-in-out infinite}
+.o1{width:220px;height:220px;background:#FF7AB6;left:-60px;top:160px}.o2{width:240px;height:240px;background:#FFC93C;right:-70px;top:60px;animation-delay:-3s}.o3{width:200px;height:200px;background:#7CF5C8;left:30%;bottom:-60px;animation-delay:-5s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+.hero .lights{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 44px);width:100%;height:48px;z-index:2}
+.bulb{animation:twinkle 1.6s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:1;filter:brightness(1.25) drop-shadow(0 0 6px rgba(255,230,120,.9))}50%{opacity:.35;filter:none}}
+.hin{position:relative;z-index:3;padding-top:100px;text-align:center}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:7px 16px;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.02em}
+.eyebrow i{font-style:normal;color:var(--yel)}
+.kicker{margin-top:14px;margin-bottom:4px;font-weight:700;font-size:18px;color:#E8FFFA;text-shadow:0 2px 0 rgba(0,40,60,.4)}
+.dbl{position:relative;margin:10px 0 0;display:flex;flex-direction:column;align-items:center}
+.gt{font-weight:800;line-height:.95;letter-spacing:-.02em;
+ background:linear-gradient(90deg,#FFF6C9 0%,#FFD43B 25%,#FFFFFF 45%,#FFC93C 65%,#FF9F43 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(0 3px 0 #B06E00) drop-shadow(0 6px 0 #7A4A00) drop-shadow(0 14px 18px rgba(0,0,0,.35));animation:sheen 3.5s linear infinite}
+h1.gt{font-size:clamp(58px,18vw,86px)}
+.row2{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:2px}
+.b2{font-size:clamp(36px,11vw,54px);letter-spacing:.06em}
+@keyframes sheen{to{background-position:-200% 0}}
+.x2b{position:relative;flex:0 0 auto;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px;color:#fff;
+ background:radial-gradient(circle at 35% 30%,#FF8A96,#E63946 55%,#A11A2A);box-shadow:0 0 0 4px #FFC93C,0 10px 22px rgba(160,20,40,.5),0 0 30px rgba(255,201,60,.8);transform:rotate(12deg);animation:pop 1.6s ease-in-out infinite}
+@keyframes pop{0%,100%{transform:rotate(12deg) scale(1)}50%{transform:rotate(12deg) scale(1.12)}}
+.upto{margin-top:12px;font-size:20px;font-weight:700}.upto b{color:var(--yel);font-size:28px;text-shadow:0 2px 0 #9C6000,0 0 18px rgba(255,201,60,.6)}
+.lead{margin:10px auto 0;max-width:420px;font-size:15px;color:#DFFBF7}
+.count{display:flex;gap:8px;justify-content:center;margin-top:18px}
+.count div{min-width:62px;padding:8px 6px;border-radius:16px;background:rgba(0,30,50,.35);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.count b{display:block;font-size:24px;font-weight:800;line-height:1.1;color:#fff}.count small{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#BDEDE4}
+.countlbl{margin-top:16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#FFE680;font-weight:700}
+.stage{position:relative;max-width:320px;margin:10px auto 0}
+.stage .ring{position:absolute;left:50%;top:52%;width:270px;height:270px;margin:-135px 0 0 -135px;border-radius:50%;background:radial-gradient(circle,rgba(255,246,201,.9),rgba(255,201,60,.35) 45%,rgba(255,201,60,0) 70%);animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{0%,100%{transform:scale(.92);opacity:.8}50%{transform:scale(1.05);opacity:1}}
+.stage .g{position:relative;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.coin{position:absolute;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#7A4A00;
+ background:radial-gradient(circle at 35% 30%,#FFF4B0,#FFC93C 55%,#D98E00);box-shadow:inset 0 -3px 0 rgba(0,0,0,.18),0 6px 12px rgba(0,0,0,.25);animation:rise 4s ease-in infinite;opacity:0}
+.c1{left:6%;bottom:10%}.c2{left:80%;bottom:18%;animation-delay:-1.3s}.c3{left:44%;bottom:4%;animation-delay:-2.6s}.c4{left:22%;bottom:30%;animation-delay:-.6s}.c5{left:66%;bottom:36%;animation-delay:-3.2s}
+@keyframes rise{0%{transform:translateY(20px) rotate(0);opacity:0}15%{opacity:1}100%{transform:translateY(-190px) rotate(200deg);opacity:0}}
+/* ---------- SECTIONS ---------- */
+section{margin-top:30px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#00868C}
+.tag:before{content:"";width:18px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--teal),var(--yel))}
+h2{font-size:clamp(24px,7vw,30px);font-weight:800;line-height:1.12;letter-spacing:-.01em;margin:6px 0 8px}
+h2 em{font-style:normal;background:linear-gradient(90deg,#00A8B5,#E0A100);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--ink);font-size:15px}
+.glass{background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.9);border-radius:26px;box-shadow:0 18px 40px rgba(0,49,82,.10),0 2px 0 rgba(255,255,255,.8) inset}
+/* calculator */
+.calc{padding:20px;margin-top:14px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip-lv{flex:0 0 auto;border:0;font:inherit;font-weight:700;font-size:13px;padding:9px 14px;border-radius:999px;color:var(--b);background:color-mix(in srgb,var(--a) 22%,white);cursor:pointer}
+.chip-lv.on{color:#fff;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 6px 14px color-mix(in srgb,var(--b) 40%,transparent)}
+.chip-lv:focus-visible,.btn:focus-visible,.share a:focus-visible,.share button:focus-visible,summary:focus-visible{outline:3px solid var(--yel);outline-offset:3px}
+.frow{display:flex;justify-content:space-between;align-items:center;margin:18px 0 6px;font-weight:700}
+.frow output{font-size:22px;color:#00868C}
+input[type=range]{width:100%;accent-color:#00BFBF;height:28px}
+.result{margin-top:14px;padding:16px;border-radius:20px;text-align:center;color:#fff;background:linear-gradient(135deg,#00BFBF,#003152)}
+.result small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#BDEDE4}
+.result b{display:block;font-size:40px;font-weight:800;line-height:1.1;color:#FFD43B;text-shadow:0 3px 0 #7A4A00}
+.result span{font-size:13px;color:#DFFBF7}
+/* level cards */
+.levels{list-style:none;display:grid;gap:10px;margin-top:14px}
+.lv{position:relative;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;padding:14px 16px;border-radius:20px;color:#fff;overflow:hidden;
+ background:linear-gradient(120deg,var(--a),var(--b));box-shadow:0 10px 22px color-mix(in srgb,var(--b) 35%,transparent)}
+.lv:after{content:"";position:absolute;top:0;bottom:0;width:60px;left:-80px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg);animation:glint 4s ease-in-out infinite}
+.lv:nth-child(2):after{animation-delay:.4s}.lv:nth-child(3):after{animation-delay:.8s}.lv:nth-child(4):after{animation-delay:1.2s}.lv:nth-child(5):after{animation-delay:1.6s}
+@keyframes glint{0%,60%{left:-80px}100%{left:120%}}
+.lv-ic{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.22);color:#fff}
+.lv-name{font-weight:800;font-size:16px;text-shadow:0 1px 0 rgba(0,0,0,.2)}
+.lv-amt{display:flex;align-items:center;gap:8px}.lv-amt s{font-size:13px;opacity:.8}
+.lv-amt .x2{font-size:11px;font-weight:800;background:#FFD43B;color:#7A4A00;border-radius:999px;padding:2px 7px}
+.lv-amt b{font-size:22px;font-weight:800;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+/* steps */
+.steps{position:relative;list-style:none;margin-top:14px;display:grid;gap:14px}
+.steps:before{content:"";position:absolute;left:27px;top:20px;bottom:20px;width:3px;border-radius:3px;background:linear-gradient(var(--teal),var(--yel),var(--red))}
+.st{position:relative;display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start;padding:14px;border-radius:22px}
+.st .n{width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.15)}
+.st:nth-child(1) .n{background:linear-gradient(135deg,#14D3D3,#008C94)}.st:nth-child(2) .n{background:linear-gradient(135deg,#FFD95A,#E0A100)}.st:nth-child(3) .n{background:linear-gradient(135deg,#FF6B75,#B5121F)}
+.st b{display:block;font-size:16px}.st p{font-size:14.5px;color:var(--ink)}
+.pts{display:flex;gap:6px;margin-top:10px;align-items:center;flex-wrap:wrap}
+.pts span{font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px;background:#E0F8F8;color:#00868C}
+.pts .eq{background:linear-gradient(135deg,#FFD95A,#FFC93C);color:#003152}
+.bar100{height:10px;border-radius:999px;background:#E0F8F8;overflow:hidden;margin-top:10px}
+.bar100 i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#00BFBF 0 40%,#FFC93C 40% 75%,#E63946 75%);animation:fill 3s ease-out infinite}
+@keyframes fill{0%{width:0}60%,100%{width:100%}}
+/* share */
+.share{padding:18px;margin-top:14px;text-align:center}
+.code{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 10px 10px 18px;border-radius:18px;border:2px dashed #00BFBF;background:#F0FCFC}
+.code b{font-size:22px;letter-spacing:.12em}
+.code button{border:0;font:inherit;font-weight:700;font-size:14px;padding:10px 16px;border-radius:14px;background:var(--navy);color:#FFD43B;cursor:pointer}
+.sbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.sbtns a{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:16px;font-weight:700;font-size:15px;color:#fff;text-decoration:none}
+.wa{background:linear-gradient(135deg,#3ADB74,#1A9E4B);box-shadow:0 8px 16px rgba(26,158,75,.3)}.tg{background:linear-gradient(135deg,#46B6F0,#1C82C8);box-shadow:0 8px 16px rgba(28,130,200,.3)}
+.nocode{font-size:14px;color:var(--ink);margin-bottom:12px}
+.toast{position:fixed;left:50%;bottom:calc(110px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;opacity:0;transition:.3s;z-index:20;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+/* commission */
+.cms{display:grid;gap:10px;margin-top:14px}
+.cm{padding:14px 16px;border-radius:20px;background:#fff;border-left:6px solid var(--b);box-shadow:0 8px 20px rgba(0,49,82,.07)}
+.cm-h{display:flex;align-items:center;gap:8px;color:var(--b)}.cm-h b{font-size:15px;color:var(--navy)}.cm-h span{margin-left:auto;font-size:12px;color:#6B8796}
+.cm-r{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.cm-r span{display:flex;flex-direction:column;align-items:center;min-width:52px;padding:6px 8px;border-radius:12px;font-weight:800;font-size:14px;color:var(--navy);background:color-mix(in srgb,var(--a) 22%,white)}
+.cm-r i{font-style:normal;font-size:10px;font-weight:600;color:#6B8796}
+/* trust, faq, terms */
+.proof{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.proof div{background:#fff;border-radius:18px;padding:14px;font-size:14px;font-weight:600;box-shadow:0 8px 20px rgba(0,49,82,.07);border-top:5px solid #00BFBF}
+.proof div:nth-child(2){border-top-color:#FFC93C}.proof div:nth-child(3){border-top-color:#E63946}.proof div:nth-child(4){border-top-color:#22B35E}
+.proof svg{width:26px;height:26px;margin-bottom:6px}
+details{background:#fff;border-radius:18px;margin-top:10px;box-shadow:0 8px 20px rgba(0,49,82,.07);border-left:5px solid #FFC93C}
+summary{list-style:none;cursor:pointer;padding:16px 50px 16px 18px;font-weight:700;font-size:15px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";position:absolute;right:16px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:linear-gradient(180deg,#FFE680,#FFC93C);color:#003152;display:flex;align-items:center;justify-content:center;font-weight:800}
+details[open] summary:after{content:"−"}
+details p{padding:0 18px 16px;font-size:14.5px;color:var(--ink)}
+.terms{font-size:12.5px;color:#6B8796;padding:26px 0 8px}.terms li{margin:0 0 6px 18px}
+/* sticky CTA */
+.dock{position:fixed;left:0;right:0;bottom:0;padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(243,251,250,0),#F3FBFA 30%);z-index:10}
+.btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;max-width:524px;margin:0 auto;padding:8px 8px 8px 26px;border-radius:999px;text-decoration:none;color:var(--navy);font-weight:800;font-size:17px;
+ background:linear-gradient(180deg,#FFE680,#FFCB2E 55%,#FFB703);box-shadow:inset 0 2px 0 rgba(255,255,255,.75),0 6px 0 #D98500,0 0 0 0 rgba(255,201,60,.6),0 14px 24px rgba(0,40,70,.25);animation:ctaglow 2s ease-in-out infinite}
+.btn:after{content:"";position:absolute;top:-20%;bottom:-20%;width:40px;left:-60px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);transform:skewX(-18deg);animation:glint 3s ease-in-out infinite}
+@keyframes ctaglow{0%,100%{box-shadow:inset 0 2px 0 rgba(255,255,255,.75),0 6px 0 #D98500,0 0 0 0 rgba(255,201,60,.6),0 14px 24px rgba(0,40,70,.25)}50%{box-shadow:inset 0 2px 0 rgba(255,255,255,.75),0 6px 0 #D98500,0 0 0 10px rgba(255,201,60,0),0 14px 24px rgba(0,40,70,.25)}}
+.btn .ar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#1B6A94,#003152 70%);color:#FFD43B}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}.reveal{opacity:1;transform:none}}
+</style></head><body data-page="bring_them_home">
+<header class="hero">
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<svg class="lights" aria-hidden="true" viewBox="0 0 430 48" preserveAspectRatio="xMidYMin meet"><path d="M-10,6 Q215.0,34 440,6" stroke="#0B3D5C" stroke-width="2.2" fill="none" opacity=".75"/><rect x="21.6" y="9.0" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-0.37s"><circle cx="24.6" cy="21.0" r="15" fill="#E63946" opacity=".35"/><ellipse cx="24.6" cy="20.0" rx="5.5" ry="7.5" fill="#E63946"/><ellipse cx="22.8" cy="17.0" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="56.2" y="12.3" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-0.74s"><circle cx="59.2" cy="24.3" r="15" fill="#FFFFFF" opacity=".35"/><ellipse cx="59.2" cy="23.3" rx="5.5" ry="7.5" fill="#FFFFFF"/><ellipse cx="57.4" cy="20.3" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="90.8" y="14.9" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-1.11s"><circle cx="93.8" cy="26.9" r="15" fill="#7CF5C8" opacity=".35"/><ellipse cx="93.8" cy="25.9" rx="5.5" ry="7.5" fill="#7CF5C8"/><ellipse cx="92.0" cy="22.9" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="125.5" y="16.9" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-1.48s"><circle cx="128.5" cy="28.9" r="15" fill="#FFC93C" opacity=".35"/><ellipse cx="128.5" cy="27.9" rx="5.5" ry="7.5" fill="#FFC93C"/><ellipse cx="126.7" cy="24.9" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="160.1" y="18.3" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-0.25s"><circle cx="163.1" cy="30.3" r="15" fill="#E63946" opacity=".35"/><ellipse cx="163.1" cy="29.3" rx="5.5" ry="7.5" fill="#E63946"/><ellipse cx="161.3" cy="26.3" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="194.7" y="18.9" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-0.62s"><circle cx="197.7" cy="30.9" r="15" fill="#FFFFFF" opacity=".35"/><ellipse cx="197.7" cy="29.9" rx="5.5" ry="7.5" fill="#FFFFFF"/><ellipse cx="195.9" cy="26.9" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="229.3" y="18.9" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-0.99s"><circle cx="232.3" cy="30.9" r="15" fill="#7CF5C8" opacity=".35"/><ellipse cx="232.3" cy="29.9" rx="5.5" ry="7.5" fill="#7CF5C8"/><ellipse cx="230.5" cy="26.9" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="263.9" y="18.3" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-1.36s"><circle cx="266.9" cy="30.3" r="15" fill="#FFC93C" opacity=".35"/><ellipse cx="266.9" cy="29.3" rx="5.5" ry="7.5" fill="#FFC93C"/><ellipse cx="265.1" cy="26.3" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="298.5" y="16.9" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-0.13s"><circle cx="301.5" cy="28.9" r="15" fill="#E63946" opacity=".35"/><ellipse cx="301.5" cy="27.9" rx="5.5" ry="7.5" fill="#E63946"/><ellipse cx="299.7" cy="24.9" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="333.2" y="14.9" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-0.50s"><circle cx="336.2" cy="26.9" r="15" fill="#FFFFFF" opacity=".35"/><ellipse cx="336.2" cy="25.9" rx="5.5" ry="7.5" fill="#FFFFFF"/><ellipse cx="334.4" cy="22.9" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="367.8" y="12.3" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-0.87s"><circle cx="370.8" cy="24.3" r="15" fill="#7CF5C8" opacity=".35"/><ellipse cx="370.8" cy="23.3" rx="5.5" ry="7.5" fill="#7CF5C8"/><ellipse cx="369.0" cy="20.3" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g><rect x="402.4" y="9.0" width="6" height="5" rx="1" fill="#0B3D5C"/><g class="bulb" style="animation-delay:-1.24s"><circle cx="405.4" cy="21.0" r="15" fill="#FFC93C" opacity=".35"/><ellipse cx="405.4" cy="20.0" rx="5.5" ry="7.5" fill="#FFC93C"/><ellipse cx="403.6" cy="17.0" rx="1.8" ry="2.6" fill="#fff" opacity=".75"/></g></svg>
+<div class="wrap hin">
+<span class="eyebrow"><i>★</i> Bring Them Home · Christmas 2026</span>
+<p class="kicker">Bring them home this Christmas</p>
+<div class="dbl"><h1 class="gt">DOUBLE</h1><div class="row2"><span class="gt b2">BONUS</span><span class="x2b" aria-hidden="true">×2</span></div></div>
+<p class="upto">Earn up to <b>₦6,000</b> per friend</p>
+<p class="lead">Your Direct Invite Bonus is doubled for every friend whose successful trades add up to 100 points.</p>
+<p class="countlbl" id="cdl">Double bonus ends in</p>
+<div class="count" role="timer" aria-live="off"><div><b id="cd_d">0</b><small>Days</small></div><div><b id="cd_h">00</b><small>Hours</small></div><div><b id="cd_m">00</b><small>Mins</small></div><div><b id="cd_s">00</b><small>Secs</small></div></div>
+<div class="stage" aria-hidden="true"><div class="ring"></div><div class="g"><svg viewBox="0 0 300 270" width="100%" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="252" rx="115" ry="12" fill="#0F1E4A" opacity=".14"/><rect x="40" y="128.0" width="110" height="112.0" rx="10" fill="#D93A3A"/>
+<rect x="108.2" y="128.0" width="41.8" height="112.0" rx="10" fill="#000" opacity=".35"/>
+<rect x="32" y="100" width="126" height="33.6" rx="10" fill="#E24B4B"/>
+<rect x="40" y="133.6" width="110" height="8" fill="#000" opacity=".12"/>
+<rect x="87.3" y="100" width="15.400000000000002" height="140" fill="#F2B33D"/>
+<g transform="translate(95.0,104) scale(1.15)">
+<path d="M0,0 C-10,-26 -46,-30 -44,-6 C-42,10 -16,8 0,0Z" fill="#F2B33D"/>
+<path d="M0,0 C10,-26 46,-30 44,-6 C42,10 16,8 0,0Z" fill="#F2B33D"/>
+<path d="M-4,2 L-20,34 L-10,30 L-6,40 L2,6Z" fill="#C98A1C"/>
+<path d="M4,2 L20,34 L10,30 L6,40 L-2,6Z" fill="#C98A1C"/>
+<ellipse cx="0" cy="0" rx="9" ry="8" fill="#C98A1C"/></g><rect x="160" y="160.0" width="86" height="80.0" rx="10" fill="#F2B33D"/>
+<rect x="213.32" y="160.0" width="32.68" height="80.0" rx="10" fill="#000" opacity=".35"/>
+<rect x="152" y="140" width="102" height="24.0" rx="10" fill="#F7C664"/>
+<rect x="160" y="164.0" width="86" height="8" fill="#000" opacity=".12"/>
+<rect x="196.98" y="140" width="12.040000000000001" height="100" fill="#D93A3A"/>
+<g transform="translate(203.0,144) scale(0.9)">
+<path d="M0,0 C-10,-26 -46,-30 -44,-6 C-42,10 -16,8 0,0Z" fill="#D93A3A"/>
+<path d="M0,0 C10,-26 46,-30 44,-6 C42,10 16,8 0,0Z" fill="#D93A3A"/>
+<path d="M-4,2 L-20,34 L-10,30 L-6,40 L2,6Z" fill="#A92424"/>
+<path d="M4,2 L20,34 L10,30 L6,40 L-2,6Z" fill="#A92424"/>
+<ellipse cx="0" cy="0" rx="9" ry="8" fill="#A92424"/></g><rect x="232" y="192.0" width="52" height="48.0" rx="10" fill="#FFF8EC"/>
+<rect x="264.24" y="192.0" width="19.76" height="48.0" rx="10" fill="#000" opacity=".35"/>
+<rect x="224" y="180" width="68" height="14.399999999999999" rx="10" fill="#FFFFFF"/>
+<rect x="232" y="194.4" width="52" height="8" fill="#000" opacity=".12"/>
+<rect x="254.36" y="180" width="7.280000000000001" height="60" fill="#D93A3A"/>
+<g transform="translate(258.0,184) scale(0.6)">
+<path d="M0,0 C-10,-26 -46,-30 -44,-6 C-42,10 -16,8 0,0Z" fill="#D93A3A"/>
+<path d="M0,0 C10,-26 46,-30 44,-6 C42,10 16,8 0,0Z" fill="#D93A3A"/>
+<path d="M-4,2 L-20,34 L-10,30 L-6,40 L2,6Z" fill="#A92424"/>
+<path d="M4,2 L20,34 L10,30 L6,40 L-2,6Z" fill="#A92424"/>
+<ellipse cx="0" cy="0" rx="9" ry="8" fill="#A92424"/></g><polygon points="150.0,55.0 154.0,64.5 164.3,65.4 156.4,72.1 158.8,82.1 150.0,76.8 141.2,82.1 143.6,72.1 135.7,65.4 146.0,64.5" fill="#F2B33D" opacity="1"/><path d="M250,99 Q251.98,108.02 261,110 Q251.98,111.98 250,121 Q248.02,111.98 239,110 Q248.02,108.02 250,99Z" fill="#F2B33D" opacity="1"/><polygon points="30.0,191.0 32.4,196.7 38.6,197.2 33.9,201.3 35.3,207.3 30.0,204.1 24.7,207.3 26.1,201.3 21.4,197.2 27.6,196.7" fill="#F2B33D" opacity="1"/></svg></div>
+<span class="coin c1">₦</span><span class="coin c2">₦</span><span class="coin c3">₦</span><span class="coin c4">₦</span><span class="coin c5">₦</span></div>
+</div></header>
+<main class="wrap">
+<section class="reveal" data-ga-section="calculator"><span class="tag">Your earnings</span><h2>How much could you <em>earn?</em></h2>
+<p class="sub">Pick your VIP level and how many friends you'll bring home.</p>
+<div class="glass calc"><div class="chips" role="group" aria-label="Your VIP level"><button type="button" class="chip-lv" data-i="0" style="--a:#E8935A;--b:#B5532A">Bronze</button><button type="button" class="chip-lv" data-i="1" style="--a:#9FB4D9;--b:#4C6696">Silver</button><button type="button" class="chip-lv on" data-i="2" style="--a:#F7C948;--b:#C98A0B">Gold</button><button type="button" class="chip-lv" data-i="3" style="--a:#A994F0;--b:#5B3FC4">Platinum</button><button type="button" class="chip-lv" data-i="4" style="--a:#5D6FD6;--b:#1F2A78">Diamond</button></div>
+<div class="frow"><label for="fr">Friends who qualify</label><output id="fro">5</output></div>
+<input id="fr" type="range" min="1" max="20" value="5" aria-label="Number of friends">
+<div class="result"><small>Your Christmas bonus</small><b id="earn">₦20,000</b><span id="norm"></span></div></div></section>
+<section class="reveal" data-ga-section="vip_bonus"><span class="tag">Double bonus</span><h2>Every level, <em>doubled</em></h2>
+<p class="sub">Your Direct Invite Bonus depends on your VIP level. From 25 Nov to 31 Dec 2026, the bonus for every level is doubled.</p>
+<ul class="levels"><li class="lv" style="--a:#E8935A;--b:#B5532A">
+<div class="lv-ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg></div><div class="lv-name">Bronze VIP</div>
+<div class="lv-amt"><s>₦1,000</s><span class="x2">×2</span><b>₦2,000</b></div></li><li class="lv" style="--a:#9FB4D9;--b:#4C6696">
+<div class="lv-ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg></div><div class="lv-name">Silver VIP</div>
+<div class="lv-amt"><s>₦1,500</s><span class="x2">×2</span><b>₦3,000</b></div></li><li class="lv" style="--a:#F7C948;--b:#C98A0B">
+<div class="lv-ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg></div><div class="lv-name">Gold VIP</div>
+<div class="lv-amt"><s>₦2,000</s><span class="x2">×2</span><b>₦4,000</b></div></li><li class="lv" style="--a:#A994F0;--b:#5B3FC4">
+<div class="lv-ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg></div><div class="lv-name">Platinum VIP</div>
+<div class="lv-amt"><s>₦2,500</s><span class="x2">×2</span><b>₦5,000</b></div></li><li class="lv" style="--a:#5D6FD6;--b:#1F2A78">
+<div class="lv-ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg></div><div class="lv-name">Diamond VIP</div>
+<div class="lv-amt"><s>₦3,000</s><span class="x2">×2</span><b>₦6,000</b></div></li></ul></section>
+<section class="reveal" data-ga-section="how_it_works"><span class="tag">How it works</span><h2>Three steps to your <em>bonus</em></h2>
+<ol class="steps">
+<li class="st glass"><div class="n"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.8-4M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm12 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8.6 13.5l6.8 4M15.4 6.5l-6.8 4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><div><b>Share your invitation code</b><p>Send it to family and friends on WhatsApp, Telegram or by text.</p></div></li>
+<li class="st glass"><div class="n"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M15 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1M8.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM19 8v6M22 11h-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><div><b>They join with your code</b><p>Your friend signs up on Tbay and enters your invitation code.</p></div></li>
+<li class="st glass"><div class="n"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M3 17l5-5 4 4 8-8M15 8h5v5" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Their trades reach 100 points</b><p>One order or several: once your friend's successful trades add up to at least <span data-k="minOrder">100 points</span>, your doubled bonus is paid automatically.</p>
+<div class="pts" aria-label="Example: 40 plus 35 plus 25 points equals 100"><span>40 pts</span>+<span>35 pts</span>+<span>25 pts</span>=<span class="eq">100 pts ✓</span></div><div class="bar100"><i></i></div></div></li>
+</ol></section>
+<section class="reveal" data-ga-section="commission"><span class="tag">Keep earning</span><h2>Your commission <em>stays the same</em></h2>
+<p class="sub">On top of the one-time bonus, you keep earning a share of your network's trades. Higher VIP levels earn more, from more generations.</p>
+<div class="cms"><div class="cm" style="--a:#5D6FD6;--b:#1F2A78">
+<div class="cm-h"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg><b>Diamond</b><span>5 generations</span></div>
+<div class="cm-r"><span><i>Direct</i>0.3%</span><span><i>2nd</i>0.25%</span><span><i>3rd</i>0.2%</span><span><i>4th</i>0.15%</span><span><i>5th</i>0.1%</span></div></div><div class="cm" style="--a:#A994F0;--b:#5B3FC4">
+<div class="cm-h"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg><b>Platinum</b><span>4 generations</span></div>
+<div class="cm-r"><span><i>Direct</i>0.25%</span><span><i>2nd</i>0.2%</span><span><i>3rd</i>0.15%</span><span><i>4th</i>0.1%</span></div></div><div class="cm" style="--a:#F7C948;--b:#C98A0B">
+<div class="cm-h"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg><b>Gold</b><span>3 generations</span></div>
+<div class="cm-r"><span><i>Direct</i>0.2%</span><span><i>2nd</i>0.15%</span><span><i>3rd</i>0.1%</span></div></div><div class="cm" style="--a:#9FB4D9;--b:#4C6696">
+<div class="cm-h"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg><b>Silver</b><span>2 generations</span></div>
+<div class="cm-r"><span><i>Direct</i>0.15%</span><span><i>2nd</i>0.1%</span></div></div><div class="cm" style="--a:#E8935A;--b:#B5532A">
+<div class="cm-h"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 3 9l9 13 9-13z" fill="currentColor" opacity=".9"/><path d="M3 9h18M12 2 8 9l4 13 4-13z" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/></svg><b>Bronze</b><span>1 generation</span></div>
+<div class="cm-r"><span><i>Direct</i>0.1%</span></div></div></div></section>
+<section class="reveal" data-ga-section="trust"><span class="tag">Why Tbay</span><h2>Bring them somewhere <em>safe</em></h2><div class="proof">
+<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0" stroke="#00868C" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>One of the longest-running gift card platforms</div>
+<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.5 6.7 19.4l1.2-6L3.4 9.3l6-.7z" stroke="#00868C" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Trusted in app store reviews</div>
+<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12l2 2 4-4M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke="#00868C" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Every card checked by quality control</div>
+<div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16v10H4zM8 10V7a4 4 0 0 1 8 0v3" stroke="#00868C" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Every vendor lodges a 30,000-point security deposit</div></div></section>
+<section class="reveal" data-ga-section="questions"><span class="tag">Questions</span><h2>Good to <em>know</em></h2><details><summary>Which bonus will I get?</summary><p>The bonus for your VIP level at the moment your friend's successful trades reach a total of 100 points: from ₦2,000 (Bronze) up to ₦6,000 (Diamond).</p></details><details><summary>When does an invite qualify?</summary><p>When your friend has joined with your code and their successful trades between 25 Nov and 31 Dec 2026 add up to at least 100 points. It can be one order or several.</p></details><details><summary>Is my commission doubled too?</summary><p>No. The one-time Direct Invite Bonus is doubled; your commission on your network's trades stays the same.</p></details><details><summary>How is the bonus paid?</summary><p>Automatically to your Tbay wallet once the invite qualifies. You don't need to claim it.</p></details><details><summary>Is there a limit on invites?</summary><p>No. There's no limit: you earn the doubled bonus for every friend who qualifies.</p></details></section>
+<ul class="terms"><li>Doubled Direct Invite Bonus for invites that qualify between 25 Nov and 31 Dec 2026, West Africa Time.</li><li>An invite qualifies when the new user joins with your invitation code and their successful trades between 25 Nov and 31 Dec 2026 add up to at least 100 points, in one order or several.</li><li>The bonus follows your VIP level when the invite qualifies. Commission rates are unchanged.</li><li>There is no limit on the number of qualifying invites. Normal referral rules apply.</li><li>Tbay may withhold rewards from accounts involved in fraud, duplicate accounts or rule abuse.</li><li>Tbay may change or end the campaign; any change will be shown on this page.</li></ul>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<div class="dock"><a class="btn" id="inviteBtn" href="#">Invite family now<span class="ar"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+<script>
+// Fills every [data-k] element from CONFIG and flags values that are still placeholders.
+(function(){
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    var v=CONFIG[el.getAttribute('data-k')]; if(v==null) return; el.textContent=v;
+    if(/\[|XXX/.test(v)) el.classList.add('ph');
+  });
+  // Send iPhone users to the iOS link and Android users to the Android link.
+  var ua=navigator.userAgent||'', plat=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)?'ios':(/Android/i.test(ua)?'android':'web');
+  var unset=function(v){return !v||/^\[/.test(v);};
+  document.querySelectorAll('[data-link]').forEach(function(el){
+    var set=(CONFIG.links||{})[el.getAttribute('data-link')]||{}, url=set[plat];
+    if(plat==='web'||unset(url)) url=CONFIG.fallback[plat];
+    if(unset(url)) url=CONFIG.fallback.web;
+    el.setAttribute('href',url); el.setAttribute('data-platform',plat);
+  });
+  // New Year countdown (West Africa Time)
+  (function(){var t=document.getElementById('nyText'); if(!t) return;
+    var ny=Date.parse('2027-01-01T00:00:00+01:00'), d=Math.ceil((ny-Date.now())/864e5);
+    t.textContent = d>1 ? d+' days to 2027' : (d===1 ? '1 day to 2027' : 'Happy New Year 2027!');})();
+  // Highlight the current campaign week (WAT = UTC+1)
+  var now=new Date(Date.now()+3600e3), d=now.toISOString().slice(0,10);
+  document.querySelectorAll('tr[data-from]').forEach(function(tr){
+    if(d>=tr.dataset.from && d<=tr.dataset.to){ tr.classList.add('now'); tr.cells[0].insertAdjacentHTML('beforeend','<span class="nowtag">This week</span>'); }
+  });
+})();
+</script><script>
+/* ===== Google Analytics 4 tracking (Christmas Homecoming 2026) =====
+   Set CONFIG.gaMeasurementId to your GA4 ID ("G-..."). Until then nothing is sent to Google.
+   Every event is ALSO pushed to window.dataLayer as "tbay_<event>" so Google Tag Manager can use it.
+   No personal data is collected: no names, phone numbers, emails or user IDs. */
+(function(){
+  var C=window.CONFIG||{}, id=C.gaMeasurementId||'';
+  var enabled=/^G-[A-Z0-9]{6,}$/.test(id) && !/XXXX/.test(id);
+  var ua=navigator.userAgent||'';
+  var platform=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)?'ios':(/Android/i.test(ua)?'android':'web');
+  var page=document.body.getAttribute('data-page')||(document.body.classList.contains('night')?'star_tiers':'campaign');
+  var base={page_type:page,campaign_name:'christmas_homecoming_2026',app_platform:platform};
+  window.dataLayer=window.dataLayer||[];
+  window.gtag=window.gtag||function(){dataLayer.push(arguments);};
+  if(enabled){
+    var s=document.createElement('script'); s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+id; document.head.appendChild(s);
+    gtag('js',new Date()); gtag('config',id,base);
+  }
+  function slug(t){return (t||'').toLowerCase().replace(/[\u2018\u2019']/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'').slice(0,60);}
+  function track(name,params,cb){
+    var p={}; for(var k in base)p[k]=base[k]; for(var k2 in (params||{}))p[k2]=params[k2];
+    var dl={event:'tbay_'+name}; for(var k3 in p)dl[k3]=p[k3]; dataLayer.push(dl);
+    if(C.gaDebug) console.log('[GA]',name,p);
+    if(enabled){ if(cb){p.event_callback=cb;p.event_timeout=700;} gtag('event',name,p); } else if(cb){cb();}
+  }
+  window.tbayTrack=track;
+
+  // 1. Button clicks (key event). Waits briefly so the hit is sent before the app link opens.
+  document.querySelectorAll('[data-link]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var href=a.getAttribute('href')||'#', done=false;
+      var go=function(){ if(!done){done=true; window.location.href=href;} };
+      e.preventDefault();
+      track('cta_click',{cta_id:a.getAttribute('data-ga')||a.getAttribute('data-link'),link_type:a.getAttribute('data-link'),
+        link_destination:/^https?:/i.test(href)?(/play\.google|apps\.apple/i.test(href)?'app_store':'web'):'app'},go);
+      setTimeout(go,800);
+    });
+  });
+  // 2. Section views: each block counted once when half of it is on screen.
+  var seen={};
+  var blocks=[].slice.call(document.querySelectorAll('header.hero, main section, .tiers .tier, #prog.on'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(en){
+      if(!en.isIntersecting) return; var el=en.target, sid=el.getAttribute('data-ga-section');
+      if(!sid){ var h=el.querySelector('h2,h1,b'); sid=el.classList.contains('hero')?'hero':(el.classList.contains('tier')?'tier_'+slug(h&&h.textContent):slug(h&&h.textContent)||'section'); }
+      if(seen[sid]) return; seen[sid]=1; track('section_view',{section_id:sid}); io.unobserve(el);
+    });},{threshold:.5});
+    blocks.forEach(function(b){io.observe(b);});
+  }
+  // 3. FAQ opens
+  document.querySelectorAll('details').forEach(function(d){
+    d.addEventListener('toggle',function(){ if(d.open){ var q=d.querySelector('summary'); track('faq_open',{faq_question:slug(q&&q.textContent)}); } });
+  });
+  // 4. Scroll depth: 25, 50, 75, 90 percent (once each)
+  var marks=[25,50,75,90], hit={};
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement, pct=Math.round((h.scrollTop+window.innerHeight)/h.scrollHeight*100);
+    marks.forEach(function(m){ if(pct>=m&&!hit[m]){hit[m]=1; track('scroll_depth',{percent_scrolled:m});} });
+  },{passive:true});
+  // 5. Star Tiers progress bar shown (only when the page is opened with ?settled=)
+  var prog=document.getElementById('prog');
+  if(prog&&prog.classList.contains('on')){ var t=document.getElementById('progNote'); track('tier_progress_view',{progress_note:slug(t&&t.textContent)}); }
+  // 6. Time on page milestones (engaged users): 15 s and 45 s
+  [15,45].forEach(function(sec){ setTimeout(function(){ if(document.visibilityState==='visible') track('engaged_time',{seconds:sec}); },sec*1000); });
+})();
+</script><script>
+(function(){
+  // Live countdown to the end of the campaign (31 Dec 2026, 23:59:59 WAT)
+  var start=Date.parse('2026-11-25T00:00:00+01:00'), end=Date.parse('2026-12-31T23:59:59+01:00');
+  var lbl=document.getElementById('cdl'), el={d:document.getElementById('cd_d'),h:document.getElementById('cd_h'),m:document.getElementById('cd_m'),s:document.getElementById('cd_s')};
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){var now=Date.now(),t=now<start?start:end,diff=Math.max(0,t-now);
+    lbl.textContent= now<start?'Double bonus starts in':(diff>0?'Double bonus ends in':'Campaign ended');
+    el.d.textContent=Math.floor(diff/864e5); el.h.textContent=pad(Math.floor(diff/36e5)%24); el.m.textContent=pad(Math.floor(diff/6e4)%60); el.s.textContent=pad(Math.floor(diff/1e3)%60);}
+  tick(); setInterval(tick,1000);
+  // Earnings calculator
+  var V=[1000,1500,2000,2500,3000], lv=2, f=document.getElementById('fr'), fo=document.getElementById('fro'), out=document.getElementById('earn'), norm=document.getElementById('norm');
+  function money(n){return '₦'+n.toLocaleString('en-NG')}
+  function calc(){var n=+f.value; fo.textContent=n; out.textContent=money(V[lv]*2*n); norm.textContent='Normally '+money(V[lv]*n)+'. This Christmas you get double.';}
+  document.querySelectorAll('.chip-lv').forEach(function(c){c.addEventListener('click',function(){document.querySelectorAll('.chip-lv').forEach(function(x){x.classList.remove('on')});c.classList.add('on');lv=+c.dataset.i;calc();
+    if(window.tbayTrack) tbayTrack('calculator_use',{vip_level:c.textContent.toLowerCase()});});});
+  f.addEventListener('input',calc); f.addEventListener('change',function(){if(window.tbayTrack) tbayTrack('calculator_use',{friends:+f.value});}); calc();
+  var toast=document.getElementById('toast');
+  // "Invite family now": iPhone/web -> H5 Refer & Earn page; Android -> close this page (back to the app)
+  var ua=navigator.userAgent||'', plat=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)?'ios':(/Android/i.test(ua)?'android':'web');
+  var unset=function(v){return !v||/^\[/.test(v);};
+  var h5=unset(CONFIG.referH5)?CONFIG.fallbackH5:CONFIG.referH5, btn=document.getElementById('inviteBtn');
+  btn.setAttribute('href', plat==='android'?'#close':h5); btn.setAttribute('data-platform',plat);
+  function closePage(){
+    var b=CONFIG.androidCloseBridge;
+    if(b){ try{ var parts=b.split('.'), fn=parts.pop(), obj=parts.reduce(function(o,k){return o&&o[k];},window); if(obj&&typeof obj[fn]==='function'){ obj[fn](); return; } }catch(e){} }
+    try{ window.close(); }catch(e){}
+    setTimeout(function(){ if(!document.hidden){ if(history.length>1){ history.back(); }
+      else { toast.textContent='Tap back to return to Refer & Earn'; toast.classList.add('on'); setTimeout(function(){toast.classList.remove('on'); toast.textContent='';},2600); } } },250);
+  }
+  btn.addEventListener('click',function(e){
+    e.preventDefault(); var done=false;
+    var go=function(){ if(done) return; done=true; if(plat==='android') closePage(); else window.location.href=h5; };
+    var p={cta_id:'family_invite',link_type:'invite',link_destination:plat==='android'?'close_page':'h5_refer_earn'};
+    if(window.tbayTrack) tbayTrack('cta_click',p,go); setTimeout(go,800);
+  });
+  // Reveal sections as they scroll in
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(function(r){io.observe(r)});} else document.querySelectorAll('.reveal').forEach(function(r){r.classList.add('in')});
+})();
+</script></body></html>
