@@ -11,10 +11,10 @@ var CONFIG={
   minOrder:"100 points",           // Friend's total successful trades in the campaign period must reach this
   /* "Invite family now" button:
      iPhone (and desktop/web): opens the Tbay H5 Refer & Earn page below.
-     Android: the button CLOSES this page (closeAppPage) and the user returns to the app. */
+     Android: the button CLOSES this page (closeAppPage) and the user returns to the app. No link is opened. */
   referH5:"[H5 Refer & Earn page URL]",  // e.g. the h5.tbay.store Refer & Earn path. Falls back to fallbackH5 while in [brackets].
   fallbackH5:"https://h5.tbay.store/",
-  androidCloseUrl:"http://dl.tbay.store/"  // Android: opening this link makes the Tbay app close the web page
+  androidCloseBridge:""            // Android: the app's JS close function, e.g. "Android.closeWebview" (ask the app team). Common names are also tried automatically.
 };
 </script>
 <style>
@@ -359,17 +359,25 @@ details p{padding:0 18px 16px;font-size:14.5px;color:var(--ink)}
   var ua=navigator.userAgent||'', plat=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)?'ios':(/Android/i.test(ua)?'android':'web');
   var unset=function(v){return !v||/^\[/.test(v);};
   var h5=unset(CONFIG.referH5)?CONFIG.fallbackH5:CONFIG.referH5, btn=document.getElementById('inviteBtn');
-  btn.setAttribute('href', plat==='android'?(CONFIG.androidCloseUrl||'http://dl.tbay.store/'):h5); btn.setAttribute('data-platform',plat);
-  // Same close method as Tbay's other web pages
+  btn.setAttribute('href', plat==='android'?'#':h5); btn.setAttribute('data-platform',plat);
+  // Close this page and return to the app (no redirect)
   var isIOS = plat==='ios';
+  function callPath(path){ try{ var parts=path.split('.'), fn=parts.pop(), obj=parts.reduce(function(o,k){return o&&o[k];},window);
+      if(obj&&typeof obj[fn]==='function'){ obj[fn](''); return true; } }catch(e){} return false; }
   function closeAppPage(){
     if (isIOS) {
-      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.closeWebview) {
-        window.webkit.messageHandlers.closeWebview.postMessage("");
-      } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.close) {
-        window.webkit.messageHandlers.close.postMessage("");
-      } else { window.history.back(); }
-    } else { window.location.href = CONFIG.androidCloseUrl || 'http://dl.tbay.store/'; }
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.closeWebview) { window.webkit.messageHandlers.closeWebview.postMessage(""); return; }
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.close) { window.webkit.messageHandlers.close.postMessage(""); return; }
+      window.history.back(); return;
+    }
+    // Android: 1) the app's close function  2) common bridge names  3) window.close  4) back  5) hint
+    var tries=[CONFIG.androidCloseBridge,'Android.closeWebview','Android.close','android.closeWebview','android.close','TbayBridge.closeWebview','TbayBridge.close','JSBridge.closeWebview','JSBridge.close'];
+    for(var k=0;k<tries.length;k++){ if(tries[k] && callPath(tries[k])) return; }
+    try{ window.close(); }catch(e){}
+    setTimeout(function(){ if(document.hidden) return;
+      if(history.length>1){ history.back(); return; }
+      toast.textContent='Tap back to return to the app'; toast.classList.add('on'); setTimeout(function(){toast.classList.remove('on');},2600);
+    },250);
   }
   window.closeAppPage = closeAppPage;
   btn.addEventListener('click',function(e){
